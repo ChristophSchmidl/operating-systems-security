@@ -1,0 +1,34 @@
+Used links:
+	* https://www.linux.com/news/understanding-pam
+	* https://www.netbsd.org/docs/guide/en/chap-pam.html
+	* http://www.linux-pam.org/Linux-PAM-html/Linux-PAM_SAG.html
+	* http://www.tuxradar.com/content/how-pam-works
+
+# Adding users. Password is always "test"
+
+root@kali:~# adduser testuser1
+root@kali:~# adduser testuser2
+root@kali:~# adduser testuser3
+root@kali:~# adduser testuser4
+
+
+1a) 
+
+PAM control values:
+
+	* required: "if module fails, return failure but continue"
+	* requisite: "if module fails, immediately return failure and stop"
+	* optional: "if module passes, return pass and stop"
+	* sufficient: "pass/fail result is ignored"
+
+
+
+
+
+1b)
+
+
+
+
+
+

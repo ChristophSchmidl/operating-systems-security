@@ -1,0 +1,5 @@
+# Writing custom PAM modules:
+	* http://www.rkeene.org/projects/info/wiki/222
+	* https://github.com/beatgammit/simple-pam
+
+root@kali:/etc/pam.d# sudo apt-get install libpam0g-dev

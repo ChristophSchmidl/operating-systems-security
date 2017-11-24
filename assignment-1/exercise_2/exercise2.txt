@@ -1,3 +1,7 @@
+Studentname: Christoph Schmidl
+Studentnumber: 4226887
+Studentemail: c.schmidl@student.ru.nl
+
 # Writing custom PAM modules:
 	* http://www.rkeene.org/projects/info/wiki/222
 	* https://github.com/beatgammit/simple-pam

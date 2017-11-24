@@ -1,31 +1,72 @@
-Used links:
-	* https://www.linux.com/news/understanding-pam
-	* https://www.netbsd.org/docs/guide/en/chap-pam.html
-	* http://www.linux-pam.org/Linux-PAM-html/Linux-PAM_SAG.html
-	* http://www.tuxradar.com/content/how-pam-works
+Studentname: Christoph Schmidl
+Studentnumber: 4226887
+Studentemail: c.schmidl@student.ru.nl
+
+
+** Useful links **
+
+	* [1] https://www.linux.com/news/understanding-pam
+	* [2] https://www.netbsd.org/docs/guide/en/chap-pam.html
+	* [3] http://www.linux-pam.org/Linux-PAM-html/sag-pam_listfile.html
+	* [4] http://www.linux-pam.org/Linux-PAM-html/Linux-PAM_SAG.html
+	* [5] http://www.tuxradar.com/content/how-pam-works
+	* [6] https://www.cyberciti.biz/tips/linux-pam-configuration-that-allows-or-deny-login-via-the-sshd-server.html
 
 # Adding users. Password is always "test"
 
-root@kali:~# adduser testuser1
-root@kali:~# adduser testuser2
-root@kali:~# adduser testuser3
-root@kali:~# adduser testuser4
+	root@kali:~# adduser testuser1
+	root@kali:~# adduser testuser2
+	root@kali:~# adduser testuser3
+	root@kali:~# adduser testuser4
 
 
 1a) 
 
-PAM control values:
+** PAM control values **
 
-	* required: "if module fails, return failure but continue"
-	* requisite: "if module fails, immediately return failure and stop"
-	* optional: "if module passes, return pass and stop"
-	* sufficient: "pass/fail result is ignored"
+	* requisite: "If this module fails, PAM immediately returns a failure result to the application; no further modules in the stack are called.", taken from [5]. One possible rule for this control value could be added under /etc/pam.d/su: "auth requisite	pam_deny.so". This rule would prevent all user from using su. The first column "auth" defines the actual facility and is concerned about authentication by providing credentials. Most of the time this is done by a prompt asking for a valid username/password combination. The second column "requisite" says that this rule will not invoke any other module in the invokation stack if the rule fails. The third column is the actual name of the PAM module which gets invoked, namely "pam_deny.so" (see: https://linux.die.net/man/8/pam_deny). This module can be used to deny access. It always indicates a failure to the application through the PAM framework. Because of this combination, no user would be able to invoke su successfully.
+
+	* required: "If this module fails, PAM returns a failure result to the application but it will continue to call the next module in the stack.", taken from [5]. One possible rule for this control can be found under /etc/pam.d/su: "auth required pam_wheel.so". The first two columns already have been explained before. The third column defines the PAM module which gets executed, namely "pam_wheel.su" (see: https://linux.die.net/man/8/pam_wheel). This rule forces users to be a member of group root before they can use "su".
+
+	* optional: "If this module succeeds, PAM returns a 'pass' result to the application and no further modules in the stack are called. (This assumes that a required module hasn't failed higher up the stack.)", taken from [5]. One possible rule for this control value can be found under /etc/pam.d/su: "session optional pam_mail.so nopen". The session facility handles tasks associated with session set-up and tear-down, such as login accounting. The pam_mail PAM module provides the "you have new mail" service to the user. It can be plugged into any application that has credential or session hooks. It gives a single message indicating the newness of any mail it finds in the user's mail folder. The provided rule says that no mail for reporting is used when the 'su' command is executed to switch to another user.
+
+	* sufficient: "The pass/fail result of this module is ignored, which generally means that the module is being called to perform some operation, rather than participating in the pass/fail decision for the stack. For example, the pam_keyinit module is used as an 'optional' module by sshd to create a new 'session keyring' for the new login", taken from [5]. One possible rule for this control value could be added under /etc/pam.d/su: "auth	sufficient	pam_permit.so". This rule would allow any user to su to root without a password. The first column has been explained before. The second column says that this rule is sufficient to pass the whole module stack like explained before. The third column is the actual name of the PAM module which gets invoked, namely "pam_permit.so" (see: https://linux.die.net/man/8/pam_permit). This PAM module always permits access. It does nothing else. Therefore, any user would be able to su to root without a password.
 
 
 
 
 
 1b)
+
+** pam_listfile.so module ** 
+
+This PAM module authenticates users based on the contents of a specified file. 
+For example, if username exists in a file /etc/sshd/ssh.allow, sshd will grant login access.
+
+
+	i) Rule appended to /etc/pam.d/sshd to disable remote password logins for the specified users:
+
+		# All users have to authenticate by providing a user/password combination
+		auth required pam_unix.so
+		# The rule reads all users from the specified file and denies access even if the provided password is correct
+		auth required pam_listfile.so item=user sense=deny file=/etc/sshd/sshd.deny onerr=succeed
+
+
+	ii) Rule appended to /etc/pam.d/sshd to disable remote public key logins for the specified users:
+
+		# Authentication by providing a public key is allowed by this rule
+		auth required pam_ssh.so
+		# The rule reads all users from the specified file and denies access even if the provided public key is correct
+		auth required pam_listfile.so item=user sense=deny file=/tmp/users onerr=succeed
+
+
+	iii) Bypass authentication and allow remote user logins without a valid password or authorized public key:
+
+		# This one is not working as expected but I guess that I have to incorporate the nullok argument somewhere
+		# auth required pam_unix.so nullok
+		auth sufficient pam_listfile.so item=user sense=allow file=/tmp/users onerr=fail
+
+
 
 
 

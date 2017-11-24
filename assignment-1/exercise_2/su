@@ -1,0 +1,6 @@
+# Assignment 1 - exercise 2
+
+auth sufficient pam_quiz_roulette.so
+auth required pam_unix.so
+account required pam_unix.so
+session required pam_unix.so

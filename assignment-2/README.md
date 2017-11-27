@@ -34,4 +34,28 @@
 
 	* Does the attacked program put the right address into `rdi`? If not, why not?
 	
-		* Answer:	
+		* Answer:
+
+	* Does the attacked program jump (return) to *system*? If not, why not?
+	
+		* Answer:
+
+	* Does the attacked program issue the correct syscall? If so, which one? If not, why not?
+	
+		* Answer:
+
+	* Summarize and explain why the attack does not work.
+	
+		* Answer:
+
+
+Note: It is of course perfectly fine to compile the program with the `-g` flag.
+Note: Addresses (for example, of *name*) are probably slightly different when running the program in gdb.
+
+* c) Can you think about a way to make the attack work with a buffer of size 64? (Hint: Where else can you find the string `/bin/sh` or similar?)
+
+	* Answer:
+
+* d) **Bonus task:** Make the attack work against a buffer of size 64 and against a buffer of size 4.
+
+	* Answer:							

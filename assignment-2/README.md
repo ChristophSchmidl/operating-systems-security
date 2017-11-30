@@ -74,6 +74,7 @@ Program received signal SIGSEGV, Segmentation fault.
 		* `# insmod /lib/modules/4.13.0-kali1-amd64/kernel/fs/squashfs/squashfs.ko`
 		* `# lsmod | grep "squash"` -> `squashfs               53248  0`
 		* `	modinfo /lib/modules/4.13.0-kali1-amd64/kernel/fs/squashfs/squashfs.ko
+		
 			filename:       /lib/modules/4.13.0-kali1-amd64/kernel/fs/squashfs/squashfs.ko
 			license:        GPL
 			author:         Phillip Lougher <phillip@squashfs.org.uk>

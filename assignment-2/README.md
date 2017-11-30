@@ -47,6 +47,7 @@ Program received signal SIGSEGV, Segmentation fault.
 
 ```
 
+* Crash course regarding inline assembly in C: [Link](https://0xax.gitbooks.io/linux-insides/content/Theory/asm.html)
 
 
 
@@ -56,6 +57,7 @@ Program received signal SIGSEGV, Segmentation fault.
 * a) Figure out where the register **CR4** is used for and report back why you think it should be be accessible in user [mode](http://en.wikipedia.org/wiki/Control_register).
 
 	* Answer: CR4 belongs to so called "Control registers" which can mainly be found in x86 series. There are 8 registers in total, namely CR0-CR7. Wikipedia describes the CR4 register as follows: *Used in protected mode to control operations such as virtual-8086 support, enabling I/O breakpoints, page size extension and machine check exceptions.*[Source](https://en.wikipedia.org/wiki/Control_register#CR4)
+	The CR4 register provides 19 different bits which enables/disables different functionality which might be dangerous to access in user mode. CR4 contains bits which handle different settings regarding page size extensions and the ability to share address translations between address spaces. This functionality refers to bit 7 and I assume that would make it possible for different processes to share address spaces and therefore would be a security flaw.
 	
 
 * b) Figure out which exact assembly instruction of **cr4.c** triggers the segmentation fault and briefly write down what it tries to do.

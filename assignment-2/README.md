@@ -114,7 +114,21 @@ Program received signal SIGSEGV, Segmentation fault.
 
 * d) If your kernel module is working correctly, try to adjust the kernel module to read out the exact same **CR4** register. Hand in the source-code of your kernel module together with a Makefile to build it and report back which value the **CR4** in your (Kali) Linux system has.
 
-	* Answer:
+	* Answer: As you can see from the terminal session below, it is indeed possible to read out the cr4 register. Its value is 406f0.
+		* `# insmod access_cr4_kernel_module.ko`
+		* `# rmmod access_cr4_kernel_module.ko`
+		* `# dmesg | tail -10
+			[    6.632104] e1000: eth0 NIC Link is Up 1000 Mbps Full Duplex, Flow Control: RX
+			[    6.632402] IPv6: ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready
+			[    8.160062] floppy0: no floppy controllers found
+			[    8.160095] work still pending
+			[    8.494095] fuse init (API version 7.26)
+			[  258.429858] squashfs: version 4.0 (2009/01/31) Phillip Lougher
+			[  963.679953] Hello world!
+			[  990.703246] Cleaning up module.
+			[ 2442.986016] Value of CR4 = 406f0
+			[ 2449.918281] Cleaning up module.
+		`
 
 
 ## 2 - Return to libc

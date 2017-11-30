@@ -5,10 +5,7 @@
 
 Login to your (Kali) Linux system as a **root** user and compile the program **cr4.c**
 
-`
-#include <stdio.h>
-
-
+`#include <stdio.h>
 
 void main() {
 
@@ -21,9 +18,7 @@ void main() {
 	/*__asm__("mov %%cr4, %%eax\n" : "=a"(result)); (for 32-bit OS)*/
 
 	printf("Value of CR4 = %llx\n", result);
-
-}
-`
+}`
 
 
 

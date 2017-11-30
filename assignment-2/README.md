@@ -72,9 +72,10 @@ Program received signal SIGSEGV, Segmentation fault.
 
 	* Answer: 
 		* `# insmod /lib/modules/4.13.0-kali1-amd64/kernel/fs/squashfs/squashfs.ko`
-		* `# lsmod | grep "squash"` -> `squashfs               53248  0`
-		* `	modinfo /lib/modules/4.13.0-kali1-amd64/kernel/fs/squashfs/squashfs.ko
-		
+		* `# lsmod | grep "squash"
+			 squashfs               53248  0
+		`
+		* `# modinfo /lib/modules/4.13.0-kali1-amd64/kernel/fs/squashfs/squashfs.ko
 			filename:       /lib/modules/4.13.0-kali1-amd64/kernel/fs/squashfs/squashfs.ko
 			license:        GPL
 			author:         Phillip Lougher <phillip@squashfs.org.uk>
@@ -84,6 +85,31 @@ Program received signal SIGSEGV, Segmentation fault.
 			intree:         Y
 			name:           squashfs
 			vermagic:       4.13.0-kali1-amd64 SMP mod_unload modversions
+		`
+		* `# apt-get install build-essential linux-headers-$(uname -r)`
+		* `# make
+			make -C /lib/modules/4.13.0-kali1-amd64/build M=/root/operating_systems_security/assignment-2 modules
+			make[1]: Entering directory '/usr/src/linux-headers-4.13.0-kali1-amd64'
+			  CC [M]  /root/operating_systems_security/assignment-2/hello.o
+			  Building modules, stage 2.
+			  MODPOST 1 modules
+			  CC      /root/operating_systems_security/assignment-2/hello.mod.o
+			  LD [M]  /root/operating_systems_security/assignment-2/hello.ko
+			make[1]: Leaving directory '/usr/src/linux-headers-4.13.0-kali1-amd64
+		`
+		* `# insmod hello.ko`
+		* `# rmmod hello.ko`
+		* `# dmesg | tail -10
+			[    6.626261] IPv6: ADDRCONF(NETDEV_UP): eth0: link is not ready
+			[    6.627641] IPv6: ADDRCONF(NETDEV_UP): eth0: link is not ready
+			[    6.632104] e1000: eth0 NIC Link is Up 1000 Mbps Full Duplex, Flow Control: RX
+			[    6.632402] IPv6: ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready
+			[    8.160062] floppy0: no floppy controllers found
+			[    8.160095] work still pending
+			[    8.494095] fuse init (API version 7.26)
+			[  258.429858] squashfs: version 4.0 (2009/01/31) Phillip Lougher
+			[  963.679953] Hello world!
+			[  990.703246] Cleaning up module.
 		`
 
 * d) If your kernel module is working correctly, try to adjust the kernel module to read out the exact same **CR4** register. Hand in the source-code of your kernel module together with a Makefile to build it and report back which value the **CR4** in your (Kali) Linux system has.

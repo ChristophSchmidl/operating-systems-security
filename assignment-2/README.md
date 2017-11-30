@@ -114,7 +114,7 @@ Program received signal SIGSEGV, Segmentation fault.
 
 * d) If your kernel module is working correctly, try to adjust the kernel module to read out the exact same **CR4** register. Hand in the source-code of your kernel module together with a Makefile to build it and report back which value the **CR4** in your (Kali) Linux system has.
 
-	* Answer: As you can see from the terminal session below, it is indeed possible to read out the cr4 register. Its value is 406f0.
+	* Answer: As you can see from the terminal session below, it is indeed possible to read out the cr4 register. Its value is 406f0. You can find the code in the folder named *kernel_module*.
 		* `# insmod access_cr4_kernel_module.ko`
 		* `# rmmod access_cr4_kernel_module.ko`
 		* `# dmesg | tail -10

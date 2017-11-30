@@ -48,6 +48,11 @@ Program received signal SIGSEGV, Segmentation fault.
 ```
 
 * Crash course regarding inline assembly in C: [Link](https://0xax.gitbooks.io/linux-insides/content/Theory/asm.html)
+* [x64 Cheat Sheet](https://cs.brown.edu/courses/cs033/docs/guides/x64_cheatsheet.pdf)
+* [Inline Assembly](https://0xax.gitbooks.io/linux-insides/content/Theory/asm.html)
+* [GCC-Inline-Assembly-HOWTO](http://www.ibiblio.org/gferg/ldp/GCC-Inline-Assembly-HOWTO.html)
+* [A Tiny Guide to GCC Inline Assembly](http://ericw.ca/notes/a-tiny-guide-to-gcc-inline-assembly.html)
+* [Extended Asm](https://gcc.gnu.org/onlinedocs/gcc/Extended-Asm.html)
 
 
 

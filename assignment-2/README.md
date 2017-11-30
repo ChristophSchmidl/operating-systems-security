@@ -55,7 +55,8 @@ Program received signal SIGSEGV, Segmentation fault.
 
 * a) Figure out where the register **CR4** is used for and report back why you think it should be be accessible in user [mode](http://en.wikipedia.org/wiki/Control_register).
 
-	* Answer:
+	* Answer: CR4 belongs to so called "Control registers" which can mainly be found in x86 series. There are 8 registers in total, namely CR0-CR7. Wikipedia describes the CR4 registers as follows: *Used in protected mode to control operations such as virtual-8086 support, enabling I/O breakpoints, page size extension and machine check exceptions.*
+	
 
 * b) Figure out which exact assembly instruction of **cr4.c** triggers the segmentation fault and briefly write down what it tries to do.
 	

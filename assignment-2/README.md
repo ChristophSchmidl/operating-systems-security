@@ -17,6 +17,39 @@ void main() {
 	}
 ```
 
+With the command line: `# gcc -o cr4 cr4.c`. 
+Notice that executing will result in an exception: `# ./cr4` Segmentation fault.
+Using a debugger, we can quickly pinpoint what the problem is. Start the debugger in assembly mode: `# gdb -ex "layout asm" ./cr4`
+and execute it using the following **GDB** instruction: `# run`:
+
+```
+   ┌───────────────────────────────────────────────────────────────────────────┐
+   │0x55555555464a <main>           push   %rbp                                │
+   │0x55555555464b <main+1>         mov    %rsp,%rbp                           │
+   │0x55555555464e <main+4>         sub    $0x10,%rsp                          │
+  >│0x555555554652 <main+8>         mov    %cr4,%rax                           │
+   │0x555555554655 <main+11>        mov    %rax,-0x8(%rbp)                     │
+   │0x555555554659 <main+15>        mov    -0x8(%rbp),%rax                     │
+   │0x55555555465d <main+19>        mov    %rax,%rsi                           │
+   │0x555555554660 <main+22>        lea    0x9d(%rip),%rdi        # 0x555555554│
+   │0x555555554667 <main+29>        mov    $0x0,%eax                           │
+   │0x55555555466c <main+34>        callq  0x555555554520 <printf@plt>         │
+   │0x555555554671 <main+39>        nop                                        │
+   │0x555555554672 <main+40>        leaveq                                     │
+   │0x555555554673 <main+41>        retq                                       │
+   └───────────────────────────────────────────────────────────────────────────┘
+
+(gdb) run
+Starting program: /root/operating_systems_security/assignment-2/cr4
+
+Program received signal SIGSEGV, Segmentation fault.
+0x0000555555554652 in main ()
+
+```
+
+
+
+
 
 
 

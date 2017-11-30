@@ -5,7 +5,7 @@
 
 Login to your (Kali) Linux system as a **root** user and compile the program **cr4.c**
 
-`
+```
 	#include <stdio.h>
 
 	void main() {
@@ -20,7 +20,7 @@ Login to your (Kali) Linux system as a **root** user and compile the program **c
 
 		printf("Value of CR4 = %llx\n", result);
 	}
-`
+```
 
 
 

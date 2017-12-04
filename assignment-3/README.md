@@ -48,11 +48,11 @@ Enable ASLR:
 
 An operating system tries to avoid information leakage between processes which are executed by different users. However, it is not always capable of identifying suspicious behaviour, especially if the processes use generic information leakage channels such as:
 
-	* Existence of a file
-	* File attributes
-	* CPU usage
-	* Temperature sensor
-	* "Disk full" errors
+* Existence of a file
+* File attributes
+* CPU usage
+* Temperature sensor
+* "Disk full" errors
 
 **Objectives**
 

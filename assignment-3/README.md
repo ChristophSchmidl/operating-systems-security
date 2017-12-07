@@ -4,6 +4,14 @@
 
 In this exercise, you will learn how to exploit a buffer overflow, bypassing ASLR on 64-bit Linux binaries. You are strongly encouraged to read this [article](https://blog.techorganic.com/2016/03/18/64-bit-linux-stack-smashing-tutorial-part-3/) before proceeding with the assignment.
 
+Reading list:
+
+* [64-bit Linux stack smashing tutorial: Part 1](https://blog.techorganic.com/2015/04/10/64-bit-linux-stack-smashing-tutorial-part-1/)
+* [64-bit Linux stack smashing tutorial: Part 2](https://blog.techorganic.com/2015/04/21/64-bit-linux-stack-smashing-tutorial-part-2/)
+* [64-bit Linux stack smashing tutorial: Part 3](https://blog.techorganic.com/2016/03/18/64-bit-linux-stack-smashing-tutorial-part-3/)
+* [PLT and GOT - the key to code sharing and dynamic libraries](https://www.technovelty.org/linux/plt-and-got-the-key-to-code-sharing-and-dynamic-libraries.html)
+
+
 Login your (Kali) Linux system and download the source [code](https://www.cs.ru.nl/~vmoonsamy/teaching/ossec2016/a3_sourcecode.zip).
 
 Compile *vuln.c* using the following command (**Hint**: add *-no-pie* on Ubuntu 16.10 and above to avoid the executable becoming ASLR'ed):

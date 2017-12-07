@@ -28,13 +28,44 @@ Enable ASLR:
 * a) Find the address of **read@plt** and **system@plt** by disassembling *vuln* using **objdump**.
 	* Answer:
 		```
-		# objdump --disassemble ./vuln | grep read@plt
-		0000000000400560 <read@plt>:
-  		400682:	e8 d9 fe ff ff       	callq  400560 <read@plt>
+		# objdump -d -f ./vuln 
 
-  		# objdump --disassemble ./vuln | grep system@plt
-		0000000000400540 <system@plt>:
-  		4006bb:	e8 80 fe ff ff       	callq  400540 <system@plt>
+		...
+		
+		Disassembly of section .plt:
+
+		0000000000000630 <.plt>:
+		 630:	ff 35 d2 09 20 00    	pushq  0x2009d2(%rip)        # 201008 <_GLOBAL_OFFSET_TABLE_+0x8>
+		 636:	ff 25 d4 09 20 00    	jmpq   *0x2009d4(%rip)        # 201010 <_GLOBAL_OFFSET_TABLE_+0x10>
+		 63c:	0f 1f 40 00          	nopl   0x0(%rax)
+
+		0000000000000640 <write@plt>:
+		 640:	ff 25 d2 09 20 00    	jmpq   *0x2009d2(%rip)        # 201018 <write@GLIBC_2.2.5>
+		 646:	68 00 00 00 00       	pushq  $0x0
+		 64b:	e9 e0 ff ff ff       	jmpq   630 <.plt>
+
+		0000000000000650 <setbuf@plt>:
+		 650:	ff 25 ca 09 20 00    	jmpq   *0x2009ca(%rip)        # 201020 <setbuf@GLIBC_2.2.5>
+		 656:	68 01 00 00 00       	pushq  $0x1
+		 65b:	e9 d0 ff ff ff       	jmpq   630 <.plt>
+
+		0000000000000660 <system@plt>:
+		 660:	ff 25 c2 09 20 00    	jmpq   *0x2009c2(%rip)        # 201028 <system@GLIBC_2.2.5>
+		 666:	68 02 00 00 00       	pushq  $0x2
+		 66b:	e9 c0 ff ff ff       	jmpq   630 <.plt>
+
+		0000000000000670 <printf@plt>:
+		 670:	ff 25 ba 09 20 00    	jmpq   *0x2009ba(%rip)        # 201030 <printf@GLIBC_2.2.5>
+		 676:	68 03 00 00 00       	pushq  $0x3
+		 67b:	e9 b0 ff ff ff       	jmpq   630 <.plt>
+
+		0000000000000680 <read@plt>:
+		 680:	ff 25 b2 09 20 00    	jmpq   *0x2009b2(%rip)        # 201038 <read@GLIBC_2.2.5>
+		 686:	68 04 00 00 00       	pushq  $0x4
+		 68b:	e9 a0 ff ff ff       	jmpq   630 <.plt>
+
+		 ...
+
 		```
 
 * b) In *vuln.c*, a ROP gadget is provided in the function helper.

@@ -27,6 +27,15 @@ Enable ASLR:
 
 * a) Find the address of **read@plt** and **system@plt** by disassembling *vuln* using **objdump**.
 	* Answer:
+		```
+		# objdump --disassemble ./vuln | grep read@plt
+		0000000000400560 <read@plt>:
+  		400682:	e8 d9 fe ff ff       	callq  400560 <read@plt>
+
+  		# objdump --disassemble ./vuln | grep system@plt
+		0000000000400540 <system@plt>:
+  		4006bb:	e8 80 fe ff ff       	callq  400540 <system@plt>
+		```
 
 * b) In *vuln.c*, a ROP gadget is provided in the function helper.
 	* i) What does the gadget do and what can it be used for?

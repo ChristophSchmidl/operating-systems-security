@@ -189,11 +189,27 @@ Enable ASLR:
 
     The actual address is therefore 0x201040.
 
-* d) Locate *payload.py* in the source code folder you downloaded. The exploit is split into two stages - Stage 1 and Stage 2. Explain for each stage what is being done. Run the volnerable program as a server: `# socat TCP-LISTEN:3333,reuseaddr,fork EXEC:./vuln`. This way you can send input using a socket on port 3333.
-	* Answer:
+* d) Locate *payload.py* in the source code folder you downloaded. The exploit is split into two stages - Stage 1 and Stage 2. Explain for each stage what is being done. Run the vulnerable program as a server: `# socat TCP-LISTEN:3333,reuseaddr,fork EXEC:./vuln`. This way you can send input using a socket on port 3333.
+	* Answer: Stage 1 is putting the string "/bin/sh" into the writable buffer address that was found in the exercise before. 8 bytes are read from stdin and put into the writable data section. In Stage 2 the system function is getting invoked with a pointer to the writable data section which now yields the value "/bin/sh". Therefore the system function should spawn a new shell.
+
 
 * e) Fill in the memory addresses you found before in *exploit.py* and run it in a separate terminal. Confirm that you can successfully get a shell by providing a screenshot (this should be the case if you entered the correct addresses) and explain in detail why.
-	* Answer:
+	* Answer: I was not able to get a working shell by executing the exploit.py script. I received the following ouput:
+
+	```
+	# ./exploit.py 
+	Received:  456e74657220696e7075743a20
+	Sending:  414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141ae070000000000000000000000000000501020000000000008000000000000008006000000000000ae0700000000000050102000000000000100000000000000010000000000000060060000000000000a
+	Received:  526563763a20
+	Sending: '/bin/sh'
+	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA�AAAAAAAA�P��P `
+	*** Connection closed by remote host ***
+
+	```
+
+	I probably did something wrong while copying the exact addresses. I'll look into this later although it might be after the deadline.
+
+
 
 
 ## 2 - Self-replicating code

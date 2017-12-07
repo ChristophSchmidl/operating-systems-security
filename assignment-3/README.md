@@ -26,7 +26,7 @@ Enable ASLR:
 **Objectives**
 
 * a) Find the address of **read@plt** and **system@plt** by disassembling *vuln* using **objdump**.
-	* Answer:
+	* Answer: I saved the entire output of the following command into the file *objdump_output.txt*.
 		```
 		# objdump -d -f ./vuln 
 
@@ -80,10 +80,27 @@ Enable ASLR:
 	```
 
 	* i) What does the gadget do and what can it be used for?
-		* Answer:
+		* Answer: This gadget pops three elements from the top of the stack and saves them into the registers %rdi, %rsi and %rdx and later on adjusting the current instruction pointer. These registers are used for passing integers or pointers and I assume that this gadget could be used to invoke another function which takes three parameters of either integers or pointers.
 
 	* ii) Find the offset of the gadget in the executable.
 		* Answer:
+
+		The important part can be found by looking into the output of the objdump command that was used before:
+
+		```
+		00000000000007aa <helper>:
+		 7aa:	55                   	push   %rbp
+		 7ab:	48 89 e5             	mov    %rsp,%rbp
+		 7ae:	5f                   	pop    %rdi
+		 7af:	5e                   	pop    %rsi
+		 7b0:	5a                   	pop    %rdx
+		 7b1:	c3                   	retq   
+		 7b2:	90                   	nop
+		 7b3:	5d                   	pop    %rbp
+		 7b4:	c3                   	retq  
+		```
+
+		The offset of the gadget is either 00000000000007aa or 00000000000007ae.
 
 * c) Use **readelf** to find writable memory that can be used to store 8 bytes of payload. Give the memory address and explain why you picked this address.
 	* Answer:

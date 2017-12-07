@@ -105,6 +105,81 @@ Enable ASLR:
 * c) Use **readelf** to find writable memory that can be used to store 8 bytes of payload. Give the memory address and explain why you picked this address.
 	* Answer:
 
+	```
+	# readelf -S vuln
+	There are 30 section headers, starting at offset 0x1a98:
+
+	Section Headers:
+	  [Nr] Name              Type             Address           Offset
+	       Size              EntSize          Flags  Link  Info  Align
+	  [ 0]                   NULL             0000000000000000  00000000
+	       0000000000000000  0000000000000000           0     0     0
+	  [ 1] .interp           PROGBITS         0000000000000238  00000238
+	       000000000000001c  0000000000000000   A       0     0     1
+	  [ 2] .note.ABI-tag     NOTE             0000000000000254  00000254
+	       0000000000000020  0000000000000000   A       0     0     4
+	  [ 3] .note.gnu.build-i NOTE             0000000000000274  00000274
+	       0000000000000024  0000000000000000   A       0     0     4
+	  [ 4] .gnu.hash         GNU_HASH         0000000000000298  00000298
+	       0000000000000024  0000000000000000   A       5     0     8
+	  [ 5] .dynsym           DYNSYM           00000000000002c0  000002c0
+	       0000000000000120  0000000000000018   A       6     1     8
+	  [ 6] .dynstr           STRTAB           00000000000003e0  000003e0
+	       00000000000000a4  0000000000000000   A       0     0     1
+	  [ 7] .gnu.version      VERSYM           0000000000000484  00000484
+	       0000000000000018  0000000000000002   A       5     0     2
+	  [ 8] .gnu.version_r    VERNEED          00000000000004a0  000004a0
+	       0000000000000020  0000000000000000   A       6     1     8
+	  [ 9] .rela.dyn         RELA             00000000000004c0  000004c0
+	       00000000000000d8  0000000000000018   A       5     0     8
+	  [10] .rela.plt         RELA             0000000000000598  00000598
+	       0000000000000078  0000000000000018  AI       5    23     8
+	  [11] .init             PROGBITS         0000000000000610  00000610
+	       0000000000000017  0000000000000000  AX       0     0     4
+	  [12] .plt              PROGBITS         0000000000000630  00000630
+	       0000000000000060  0000000000000010  AX       0     0     16
+	  [13] .plt.got          PROGBITS         0000000000000690  00000690
+	       0000000000000008  0000000000000008  AX       0     0     8
+	  [14] .text             PROGBITS         00000000000006a0  000006a0
+	       0000000000000232  0000000000000000  AX       0     0     16
+	  [15] .fini             PROGBITS         00000000000008d4  000008d4
+	       0000000000000009  0000000000000000  AX       0     0     4
+	  [16] .rodata           PROGBITS         00000000000008e0  000008e0
+	       0000000000000024  0000000000000000   A       0     0     4
+	  [17] .eh_frame_hdr     PROGBITS         0000000000000904  00000904
+	       000000000000004c  0000000000000000   A       0     0     4
+	  [18] .eh_frame         PROGBITS         0000000000000950  00000950
+	       0000000000000148  0000000000000000   A       0     0     8
+	  [19] .init_array       INIT_ARRAY       0000000000200de8  00000de8
+	       0000000000000008  0000000000000008  WA       0     0     8
+	  [20] .fini_array       FINI_ARRAY       0000000000200df0  00000df0
+	       0000000000000008  0000000000000008  WA       0     0     8
+	  [21] .dynamic          DYNAMIC          0000000000200df8  00000df8
+	       00000000000001e0  0000000000000010  WA       6     0     8
+	  [22] .got              PROGBITS         0000000000200fd8  00000fd8
+	       0000000000000028  0000000000000008  WA       0     0     8
+	  [23] .got.plt          PROGBITS         0000000000201000  00001000
+	       0000000000000040  0000000000000008  WA       0     0     8
+	  [24] .data             PROGBITS         0000000000201040  00001040
+	       0000000000000010  0000000000000000  WA       0     0     8
+	  [25] .bss              NOBITS           0000000000201050  00001050
+	       0000000000000010  0000000000000000  WA       0     0     8
+	  [26] .comment          PROGBITS         0000000000000000  00001050
+	       0000000000000026  0000000000000001  MS       0     0     1
+	  [27] .symtab           SYMTAB           0000000000000000  00001078
+	       00000000000006a8  0000000000000018          28    44     8
+	  [28] .strtab           STRTAB           0000000000000000  00001720
+	       0000000000000271  0000000000000000           0     0     1
+	  [29] .shstrtab         STRTAB           0000000000000000  00001991
+	       0000000000000107  0000000000000000           0     0     1
+	Key to Flags:
+	  W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
+	  L (link order), O (extra OS processing required), G (group), T (TLS),
+	  C (compressed), x (unknown), o (OS specific), E (exclude),
+	  l (large), p (processor specific)
+
+	```
+
 * d) Locate *payload.py* in the source code folder you downloaded. The exploit is split into two stages - Stage 1 and Stage 2. Explain for each stage what is being done. Run the volnerable program as a server: `# socat TCP-LISTEN:3333,reuseaddr,fork EXEC:./vuln`. This way you can send input using a socket on port 3333.
 	* Answer:
 

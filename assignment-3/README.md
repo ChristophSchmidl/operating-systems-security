@@ -31,7 +31,7 @@ Enable ASLR:
 		# objdump -d -f ./vuln 
 
 		...
-		
+
 		Disassembly of section .plt:
 
 		0000000000000630 <.plt>:
@@ -67,6 +67,9 @@ Enable ASLR:
 		 ...
 
 		```
+
+		 In the read@plt section we can see that the value to be returned is loaded from an offset of 0x2009b2 from the current %rip (instruction pointer register for 64bit. 32bit = eip). Therefore, the address is 0x201038.
+		 In the system@plt section we can see that the value to be returned is loaded from an offset of 0x2009c2 from the current $rip (instruction pointer register for 64bit. 32bit = eip). Therefore, the address is 0x201028
 
 * b) In *vuln.c*, a ROP gadget is provided in the function helper.
 	* i) What does the gadget do and what can it be used for?

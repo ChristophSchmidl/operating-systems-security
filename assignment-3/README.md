@@ -187,7 +187,7 @@ Enable ASLR:
         0000000000000010  0000000000000000  WA       0     0     8
     ```
 
-    The actual address is therefore 0x201040 
+    The actual address is therefore 0x201040.
 
 * d) Locate *payload.py* in the source code folder you downloaded. The exploit is split into two stages - Stage 1 and Stage 2. Explain for each stage what is being done. Run the volnerable program as a server: `# socat TCP-LISTEN:3333,reuseaddr,fork EXEC:./vuln`. This way you can send input using a socket on port 3333.
 	* Answer:

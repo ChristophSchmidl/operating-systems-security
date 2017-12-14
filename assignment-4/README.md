@@ -70,7 +70,6 @@ and run it to see system calls used by **showdate**
 	testuser1@kali:/root/operating_systems_security/assignment-4$ PATH=.:${PATH}
 	testuser1@kali:/root/operating_systems_security/assignment-4$ export PATH
 	testuser1@kali:/root/operating_systems_security/assignment-4$ ./showdate
-	testuser1@kali:/root/operating_systems_security/assignment-4$ ./showdate
 	# id
 	uid=0(root) gid=0(root) groups=0(root),1000(testuser1) 
 	```

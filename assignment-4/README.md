@@ -49,19 +49,29 @@ In this exercise we consider a reference monitor which uses Mandatory Access Con
 
 **Objectives**
 
+
 * a) For each of the following steps determine whether the reference monitor will allow the action. If not, explain why not (if there are multiple reasons, state all).
 	* i) User peter logs in with clearance (secret, application) and tries to run */usr/bin/someprog*.
-		* Answer:
+
+		* Answer: I assume that both the Bell-LaPadula and the Biba model are using weak tranquility as shown in the slides. **Weak tranquility** = Security level of a process never changes in a way that it violates the security policy. Typically start with low level, and increase as the process reads higher-level information. As peter logs in with clearance (secret, application), */usr/bin/someprog* receives the levels (unclassified, trusted). Therefore the action is **allowed**. 
+
 	* ii) The process dynamically loads (reads) */usr/lib/somelib.so*
-		* Answer:
+
+		* Answer: As the process dynamically loads */usr/lib/somelib.so*, */usr/bin/someprog* receives the levels (unclassified, system). Therefore the action is **allowed**. 
+
 	* iii) The process reads */home/peter/database*.
-		* Answer:
+
+		* Answer: Because */home/peter/database* has the level (confidential, user) and */usr/bin/someprog* cannot read below the confidentiality level *application* (No read-down), this action is **not allowed**.
+
 	* iv) The process writes data to the network socket.
-		* Answer:
+		* Answer: Because the network socket has the level (unclassified, untrusted) and */usr/bin/someprog* is running with (unclassified, system), this action is **allowed**. The Biba rule forbids write-up but not write-down.
+
 	* v) The process reads */etc/password*.
-		* Answer: 
+		* Answer: As the process is reading */etc/password* with level (confidential, trusted), the process is receiving the level (confidential, system) and is therefore **allowed** to execute this action. The Bida rule forbids read-down but not read-up.
+
 	* vi) The process writes */etc/shadow*.
-		* Answer:
+		* Answer: As the process is trying to write to */etc/shadow* with level (confidential, trusted), the process still has the level (confidential, system). The Bida rule forbids write-up, therefore this action is **not allowed**.
 
 * b) The process from part a) now creates a new file */home/peter/out*. What are the permitted pairs of trust and secrecy level for this output file?
-	* Answer:							
+
+	* Answer: At the end of action vi the process spawned from executing */usr/bin/someprog* has the level of (confidential, system). As the Bell-LaPadula model forbids write-down but write-up is not a problem, the output file could have have any confidentiality level of confidential, secret or top secret but not unclassified. The Biba model forbids write-up but write-down is not a problem, therefore the integrity level could be anything between system, application, user or untrusted but not trusted. Any combination from those two sets is therefore a possible combination for the file */home/peter/out* like (top secret, system). 

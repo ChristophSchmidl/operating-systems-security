@@ -24,7 +24,7 @@ and run it to see system calls used by **showdate**
 **Objectives**
 
 * a) Find out what the program does internally. What system calls does it use?
-	* Answer:
+	* Answer: strace is printing its output to stderr and not to stdout. Therefore you have to redirect its output to later pipe it to grep.
 
 	```
 	root@kali:~/operating_systems_security/assignment-4# strace -f ./showdate 2>&1 | grep -oP "\w+(?=\()" | sort -u

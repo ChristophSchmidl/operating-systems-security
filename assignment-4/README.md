@@ -25,6 +25,37 @@ and run it to see system calls used by **showdate**
 
 * a) Find out what the program does internally. What system calls does it use?
 	* Answer:
+
+	```
+	root@kali:~/operating_systems_security/assignment-4# strace -f ./showdate 2>&1 | grep -oP "\w+(?=\()" | sort -u
+	access
+	arch_prctl
+	brk
+	clone
+	close
+	execve
+	exit_group
+	fstat
+	geteuid
+	getpid
+	getppid
+	lseek
+	mmap
+	mprotect
+	munmap
+	open
+	read
+	rt_sigaction
+	rt_sigprocmask
+	rt_sigreturn
+	setgid
+	setuid
+	stat
+	wait4
+	WEXITSTATUS
+	WIFEXITED
+	write
+	```
 	
 
 * b) Assume the role of a non-privileged attacker. Use the program *showdate* to obtain a root shell. You can verify if you succeeded by looking at the output of **id**, it should be something like: `$ /usr/bin/id` *uid=0(root) gid=0(root) groups=0(root),27(sudo),1001(test1)* Hand in the exact console commands you used to get this working.

@@ -142,7 +142,7 @@ The two steps in parantheses are only required if the **chroot** system call als
 
 * c) Write a program that, when executed inside the **/tmp/debian chroot** jail with root rights, reads the file **/tmp/outside**, which is *outside** the **chroot** jail and outputs its contents. Submit the source code of the program. **Note:** The program will first have to escape the **chroot** jail using the above sequence. 
 
-	* Answer:
+	* Answer: The corresponding c file and its compiled format can be found under chroot_reader.c and chroot_reader.
 
 	```
 	#include <sys/stat.h>
@@ -177,6 +177,15 @@ The two steps in parantheses are only required if the **chroot** system call als
 	        }
 	}
 	```
+
+	After compiling and running the program inside the chroot envionment it indeed prints out the content of the **/tmp/outside** file which lies outside the chroot environment:
+
+	```
+	root@kali:/# gcc -static -o chroot_reader chroot_reader.c 
+	root@kali:/# ./chroot_reader 
+	These aren't the droids you're looking for!
+	```
+
 
 * d) Does the program also function without root permissions? Explain why or why not. **Note:** You can use **chroot --userspec USERNAME** to try this.
 

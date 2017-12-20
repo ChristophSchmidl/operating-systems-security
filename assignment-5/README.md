@@ -26,6 +26,21 @@ The **chroot** compartmentalization does, by design, not prevent root to break o
 
 The two steps in parantheses are only required if the **chroot** system call also changes the working directory to the **chroot** directory. Note that after step 4, the process has a working directory outside the current root directory; this is what allows the process to change the working directory further up to the actual root.
 
+**Objectives**
+
+* a) Create a symbolic link from somewhere inside **/tmp/debian/** to somewhere outside **/tmp/debian**. Can you follow the symbolic link when using **/tmp/debian** as a **chroot** jail?
+	* Answer:
+
+* b) Create a hard link from somewhere inside **/tmp/debian** to somewhere outside **/tmp/debian**. Can you follow the hard link when using **/tmp/debian** as a **chroot** jail?
+	* Answer:
+
+* c) Write a program that, when executed inside the **/tmp/debian chroot** jail with root rights, reads the file **/tmp/outside**, which is *outside** the **chroot** jail and outputs its contents. Submit the source code of the program. **Note:** The program will first have to escape the **chroot** jail using the above sequence. 
+	* Answer:
+
+* d) Does the program also function without root permissions? Explain why or why not. **Note:** You can use **chroot --userspec USERNAME** to try this.
+	* Answer:	
+
+
 ## 2: Covert channels (again)
 
 This exercise is a bit of a preparation for next week's lecture on virtualization. Virtualization (as with vmware, virtualbox, xen or other solutions) significantly reduces covert channels, however it does not fully eliminate covert channels (and side channels).

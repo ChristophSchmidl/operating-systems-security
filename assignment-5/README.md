@@ -61,7 +61,7 @@ The two steps in parantheses are only required if the **chroot** system call als
 	drwxr-xr-x 11 root root 4096 Dec 20 12:53 var/
 	```
 
-	I created a folder called "cd_me_if_you_can" outside the chroot environment with my original root user and created a symbolic link inside the chroot environment which points to the "cd_me_if_you_can_folder". It was **not** possible to cd into this directory inside the chroot environment:
+	I created a folder called "cd_me_if_you_can" outside the chroot environment with my original root user and created a symbolic link inside the chroot environment which points to the "cd_me_if_you_can" folder. It was **not** possible to cd into this directory inside the chroot environment and therefore **not** possible to follow the symlink:
 
 	```
 	root@kali:~# ln -s ./cd_me_if_you_can/ /tmp/debian/breakout_symlink

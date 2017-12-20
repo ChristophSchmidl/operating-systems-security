@@ -61,6 +61,71 @@ The two steps in parantheses are only required if the **chroot** system call als
 	drwxr-xr-x 11 root root 4096 Dec 20 12:53 var/
 	```
 
+	I created a folder called "cd_me_if_you_can" outside the chroot environment with my original root user and created a symbolic link inside the chroot environment which points to the "cd_me_if_you_can_folder". It was **not** possible to cd into this directory inside the chroot environment:
+
+	```
+	root@kali:~# ln -s ./cd_me_if_you_can/ /tmp/debian/breakout_symlink
+	root@kali:~# ll /tmp/debian/
+	total 908
+	drwxr-xr-x 23 root root   4096 Dec 20 08:35 ./
+	drwxrwxrwt 13 root root   4096 Dec 20 08:35 ../
+	drwxr-xr-x  2 root root   4096 Dec 20 07:53 bin/
+	drwxr-xr-x  2 root root   4096 Nov 19 10:32 boot/
+	drwxr-xr-x  2 root root   4096 Dec 20 08:07 breakout/
+	drwxr-xr-x  2 root root   4096 Dec 20 08:23 .breakout/
+	lrwxrwxrwx  1 root root     19 Dec 20 08:35 breakout_symlink -> ./cd_me_if_you_can/
+	drwxr-xr-x  4 root root   4096 Dec 20 07:53 dev/
+	drwxr-xr-x 52 root root   4096 Dec 20 07:58 etc/
+	drwxr-xr-x  2 root root   4096 Nov 19 10:32 home/
+	drwxr-xr-x 12 root root   4096 Dec 20 07:58 lib/
+	drwxr-xr-x  2 root root   4096 Dec 20 07:53 lib64/
+	drwxr-xr-x  2 root root   4096 Dec 20 07:53 media/
+	drwxr-xr-x  2 root root   4096 Dec 20 07:53 mnt/
+	drwxr-xr-x  2 root root   4096 Dec 20 07:53 opt/
+	drwxr-xr-x  2 root root   4096 Nov 19 10:32 proc/
+	drwx------  2 root root   4096 Dec 20 08:26 root/
+	drwxr-xr-x  4 root root   4096 Dec 20 07:53 run/
+	drwxr-xr-x  2 root root   4096 Dec 20 07:53 sbin/
+	drwxr-xr-x  2 root root   4096 Dec 20 07:53 srv/
+	drwxr-xr-x  2 root root   4096 Apr  6  2015 sys/
+	drwxrwxrwt  2 root root   4096 Dec 20 08:28 tmp/
+	-rwxr-xr-x  1 root root 829336 Dec 20 08:28 unchroot_basic*
+	-rw-r--r--  1 root root    207 Dec 20 08:28 unchroot_basic.c
+	drwxr-xr-x 10 root root   4096 Dec 20 07:53 usr/
+	drwxr-xr-x 11 root root   4096 Dec 20 07:53 var/
+	root@kali:~# chroot /tmp/debian/
+	root@kali:/# ls -alF
+	total 908
+	drwxr-xr-x 23 root root   4096 Dec 20 13:35 ./
+	drwxr-xr-x 23 root root   4096 Dec 20 13:35 ../
+	drwxr-xr-x  2 root root   4096 Dec 20 13:23 .breakout/
+	drwxr-xr-x  2 root root   4096 Dec 20 12:53 bin/
+	drwxr-xr-x  2 root root   4096 Nov 19 15:32 boot/
+	drwxr-xr-x  2 root root   4096 Dec 20 13:07 breakout/
+	lrwxrwxrwx  1 root root     19 Dec 20 13:35 breakout_symlink -> ./cd_me_if_you_can/
+	drwxr-xr-x  4 root root   4096 Dec 20 12:53 dev/
+	drwxr-xr-x 52 root root   4096 Dec 20 12:58 etc/
+	drwxr-xr-x  2 root root   4096 Nov 19 15:32 home/
+	drwxr-xr-x 12 root root   4096 Dec 20 12:58 lib/
+	drwxr-xr-x  2 root root   4096 Dec 20 12:53 lib64/
+	drwxr-xr-x  2 root root   4096 Dec 20 12:53 media/
+	drwxr-xr-x  2 root root   4096 Dec 20 12:53 mnt/
+	drwxr-xr-x  2 root root   4096 Dec 20 12:53 opt/
+	drwxr-xr-x  2 root root   4096 Nov 19 15:32 proc/
+	drwx------  2 root root   4096 Dec 20 13:26 root/
+	drwxr-xr-x  4 root root   4096 Dec 20 12:53 run/
+	drwxr-xr-x  2 root root   4096 Dec 20 12:53 sbin/
+	drwxr-xr-x  2 root root   4096 Dec 20 12:53 srv/
+	drwxr-xr-x  2 root root   4096 Apr  6  2015 sys/
+	drwxrwxrwt  2 root root   4096 Dec 20 13:28 tmp/
+	-rwxr-xr-x  1 root root 829336 Dec 20 13:28 unchroot_basic*
+	-rw-r--r--  1 root root    207 Dec 20 13:28 unchroot_basic.c
+	drwxr-xr-x 10 root root   4096 Dec 20 12:53 usr/
+	drwxr-xr-x 11 root root   4096 Dec 20 12:53 var/
+	root@kali:/# cd breakout_symlink 
+	bash: cd: breakout_symlink: No such file or directory
+	```
+
 * b) Create a hard link from somewhere inside **/tmp/debian** to somewhere outside **/tmp/debian**. Can you follow the hard link when using **/tmp/debian** as a **chroot** jail?
 
 	* Answer:

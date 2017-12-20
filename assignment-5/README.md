@@ -64,6 +64,7 @@ The two steps in parantheses are only required if the **chroot** system call als
 	I created a folder called "cd_me_if_you_can" outside the chroot environment with my original root user and created a symbolic link inside the chroot environment which points to the "cd_me_if_you_can" folder. It was **not** possible to cd into this directory inside the chroot environment and therefore **not** possible to follow the symlink:
 
 	```
+	root@kali:~# mkdir cd_me_if_you_can
 	root@kali:~# ln -s ./cd_me_if_you_can/ /tmp/debian/breakout_symlink
 	root@kali:~# ll /tmp/debian/
 	total 908
@@ -128,7 +129,16 @@ The two steps in parantheses are only required if the **chroot** system call als
 
 * b) Create a hard link from somewhere inside **/tmp/debian** to somewhere outside **/tmp/debian**. Can you follow the hard link when using **/tmp/debian** as a **chroot** jail?
 
-	* Answer:
+	* Answer: I created a file called "cat_me_if_you_can" outside the chroot environment with my original root user and created a hard link inside the chroot environment which points to the "cat_me_if_you_can" file. It was possible to cat the contents of the hard link inside the chroot environment and therefore possible to follow the hard link:
+
+	```
+	root@kali:~# touch cat_me_if_you_can
+	root@kali:~# nano cat_me_if_you_can
+	root@kali:~# ln ./cat_me_if_you_can /tmp/debian/cat_me_if_you_can
+	root@kali:~# chroot /tmp/debian/
+	root@kali:/# cat cat_me_if_you_can 
+	These aren't the droids you're looking for!
+	```
 
 * c) Write a program that, when executed inside the **/tmp/debian chroot** jail with root rights, reads the file **/tmp/outside**, which is *outside** the **chroot** jail and outputs its contents. Submit the source code of the program. **Note:** The program will first have to escape the **chroot** jail using the above sequence. 
 

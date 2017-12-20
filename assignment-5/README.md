@@ -197,7 +197,7 @@ The two steps in parantheses are only required if the **chroot** system call als
 	bash: /root/.bashrc: Permission denied
 	I have no name!@kali:/$ 
 	I have no name!@kali:/$ ./chroot_reader 
-	I have no name!@kali:/$ whoami
+	I have no name!@kali:/$
 	```
 
 

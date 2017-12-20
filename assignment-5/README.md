@@ -190,7 +190,15 @@ The two steps in parantheses are only required if the **chroot** system call als
 
 * d) Does the program also function without root permissions? Explain why or why not. **Note:** You can use **chroot --userspec USERNAME** to try this.
 
-	* Answer:	
+	* Answer: The program does not function without root permission because based on the documentation of chroot you have to be root to execute the chroot command. A normal user is therefore not privileged to execute chroot and therefore this program does not work.
+
+	```
+	root@kali:~# chroot --userspec testuser1 /tmp/debian
+	bash: /root/.bashrc: Permission denied
+	I have no name!@kali:/$ 
+	I have no name!@kali:/$ ./chroot_reader 
+	I have no name!@kali:/$ whoami
+	```
 
 
 ## 2: Covert channels (again)

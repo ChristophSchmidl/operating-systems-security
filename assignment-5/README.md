@@ -144,8 +144,8 @@ The two steps in parantheses are only required if the **chroot** system call als
 
 	* Answer: 
 
-	Handy websites which helped me solving this exercise:
-		* [Escaping a chroot jail/1](https://filippo.io/escaping-a-chroot-jail-slash-1/)
+		Handy websites which helped me solving this exercise:
+			* [Escaping a chroot jail/1](https://filippo.io/escaping-a-chroot-jail-slash-1/)
 
 	The corresponding c file and its compiled format can be found under chroot_reader.c and chroot_reader.
 

@@ -141,11 +141,9 @@ The two steps in parantheses are only required if the **chroot** system call als
 	```
 
 * c) Write a program that, when executed inside the **/tmp/debian chroot** jail with root rights, reads the file **/tmp/outside**, which is *outside** the **chroot** jail and outputs its contents. Submit the source code of the program. **Note:** The program will first have to escape the **chroot** jail using the above sequence. 
-Handy websites which helped me solving this exercise: [Escaping a chroot jail/1](https://filippo.io/escaping-a-chroot-jail-slash-1/), [Breaking out of chroot environment (german)](https://debianforum.de/forum/viewtopic.php?f=37&t=89606), [Prison Break (chroot)](https://warsang.ovh/prison-break-chroot/), [Printing contents of text file in c](https://stackoverflow.com/questions/3463426/in-c-how-should-i-read-a-text-file-and-print-all-strings).
 
-	* Answer: 
 
-	The corresponding c file and its compiled format can be found under chroot_reader.c and chroot_reader.
+	* Answer: Handy websites which helped me solving this exercise: [Escaping a chroot jail/1](https://filippo.io/escaping-a-chroot-jail-slash-1/), [Breaking out of chroot environment (german)](https://debianforum.de/forum/viewtopic.php?f=37&t=89606), [Prison Break (chroot)](https://warsang.ovh/prison-break-chroot/), [Printing contents of text file in c](https://stackoverflow.com/questions/3463426/in-c-how-should-i-read-a-text-file-and-print-all-strings). The corresponding c file and its compiled format can be found under chroot_reader.c and chroot_reader.
 
 	```
 	#include <sys/stat.h>

@@ -29,15 +29,48 @@ The two steps in parantheses are only required if the **chroot** system call als
 **Objectives**
 
 * a) Create a symbolic link from somewhere inside **/tmp/debian/** to somewhere outside **/tmp/debian**. Can you follow the symbolic link when using **/tmp/debian** as a **chroot** jail?
-	* Answer:
+
+	* Answer: I'm using Kali Linux which seems to be a derivative of Debian. Invoking the deboostrap command gave me an `bash: debootstrap: command not found` error. After executing `sudo apt-get install debootstrap` it worked though. 
+
+	```
+	root@kali:~# chroot /tmp/debian/
+	root@kali:/# pwd
+	/
+	root@kali:/# ls -alF
+	total 84
+	drwxr-xr-x 21 root root 4096 Dec 20 12:53 ./
+	drwxr-xr-x 21 root root 4096 Dec 20 12:53 ../
+	drwxr-xr-x  2 root root 4096 Dec 20 12:53 bin/
+	drwxr-xr-x  2 root root 4096 Nov 19 15:32 boot/
+	drwxr-xr-x  4 root root 4096 Dec 20 12:53 dev/
+	drwxr-xr-x 52 root root 4096 Dec 20 12:53 etc/
+	drwxr-xr-x  2 root root 4096 Nov 19 15:32 home/
+	drwxr-xr-x 12 root root 4096 Dec 20 12:53 lib/
+	drwxr-xr-x  2 root root 4096 Dec 20 12:53 lib64/
+	drwxr-xr-x  2 root root 4096 Dec 20 12:53 media/
+	drwxr-xr-x  2 root root 4096 Dec 20 12:53 mnt/
+	drwxr-xr-x  2 root root 4096 Dec 20 12:53 opt/
+	drwxr-xr-x  2 root root 4096 Nov 19 15:32 proc/
+	drwx------  2 root root 4096 Dec 20 12:53 root/
+	drwxr-xr-x  4 root root 4096 Dec 20 12:53 run/
+	drwxr-xr-x  2 root root 4096 Dec 20 12:53 sbin/
+	drwxr-xr-x  2 root root 4096 Dec 20 12:53 srv/
+	drwxr-xr-x  2 root root 4096 Apr  6  2015 sys/
+	drwxrwxrwt  2 root root 4096 Dec 20 12:53 tmp/
+	drwxr-xr-x 10 root root 4096 Dec 20 12:53 usr/
+	drwxr-xr-x 11 root root 4096 Dec 20 12:53 var/
+	```
 
 * b) Create a hard link from somewhere inside **/tmp/debian** to somewhere outside **/tmp/debian**. Can you follow the hard link when using **/tmp/debian** as a **chroot** jail?
+
 	* Answer:
 
 * c) Write a program that, when executed inside the **/tmp/debian chroot** jail with root rights, reads the file **/tmp/outside**, which is *outside** the **chroot** jail and outputs its contents. Submit the source code of the program. **Note:** The program will first have to escape the **chroot** jail using the above sequence. 
+
 	* Answer:
 
 * d) Does the program also function without root permissions? Explain why or why not. **Note:** You can use **chroot --userspec USERNAME** to try this.
+
 	* Answer:	
 
 

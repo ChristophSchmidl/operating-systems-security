@@ -210,6 +210,8 @@ This exercise is a bit of a preparation for next week's lecture on virtualizatio
 Write a program that communicate through a covert channel from one VMWare virtual machine to another VMWare virtual machine.
 **Note:** The program does not have to have a large communication bandwidth. It is sufficient if the sender sends one bit and the receiver receives this one but with high probability.
 
+	* Answer: Read [Covert Channel using Man-In-The-Middle over HTTPS](http://scholarworks.rit.edu/cgi/viewcontent.cgi?article=1918&context=other) and [Covert Channels](https://www.sans.org/reading-room/whitepapers/detection/covert-channels-33413). I would probably choose the ICMP protocol and hide my data in the ICMP header data field.
+
 
 
 

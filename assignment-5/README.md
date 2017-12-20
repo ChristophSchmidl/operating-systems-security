@@ -141,7 +141,6 @@ The two steps in parantheses are only required if the **chroot** system call als
 	```
 
 * c) Write a program that, when executed inside the **/tmp/debian chroot** jail with root rights, reads the file **/tmp/outside**, which is *outside** the **chroot** jail and outputs its contents. Submit the source code of the program. **Note:** The program will first have to escape the **chroot** jail using the above sequence. 
-
 Handy websites which helped me solving this exercise:
 	* [Escaping a chroot jail/1](https://filippo.io/escaping-a-chroot-jail-slash-1/)
 	* [Breaking out of chroot environment (german)](https://debianforum.de/forum/viewtopic.php?f=37&t=89606)
